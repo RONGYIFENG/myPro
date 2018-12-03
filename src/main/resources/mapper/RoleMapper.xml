@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- RoleMapper.xml文件 -->
+<mapper namespace="com.rong.app.role.dao.RoleMapper">
+
+	<!-- 行别名列名ResultMap -->
+	<resultMap id="RMRoleMapper" type="com.rong.app.role.entity.RoleEntity">
+		<!-- 主键 -->
+        <result property="id" column="id"/>
+		<!-- 角色名 -->
+        <result property="roleName" column="role_name"/>
+		<!-- 数据范围 -->
+        <result property="dataScope" column="data_scope"/>
+		<!-- 删除标记 -->
+        <result property="delFlag" column="del_flag"/>
+	</resultMap>
+
+	<!-- 通用where子句 -->
+    <sql id="where">
+	<trim prefix="WHERE" prefixOverrides="AND|OR"> 
+		   <if test="id != null and id != ''">
+			   AND id = #{id}
+		   </if>
+		   <if test="roleName != null and roleName != ''">
+			   AND role_name = #{roleName}
+		   </if>
+	       <if test="dataScope != null ">
+				AND data_scope = #{dataScope}
+			</if>
+	       <if test="delFlag != null ">
+				AND del_flag = #{delFlag}
+			</if>
+	</trim>
+    </sql>
+
+	<!-- 通用行别名列名映射 -->
+    <sql id="Base_Column_List" >
+	        id id ,
+	        role_name roleName ,
+	        data_scope dataScope ,
+	        del_flag delFlag 
+    </sql>
+
+	<!-- 插入Role记录 -->
+    <insert id="insert" parameterType="com.rong.app.role.entity.RoleEntity">
+        insert into role (
+		<if test="id != null and  id != ''">
+			id ,
+		</if>
+		<if test="roleName != null and  roleName != ''">
+			role_name ,
+		</if>
+		<if test="dataScope != null">
+			data_scope ,
+		</if>
+		<if test="delFlag != null">
+			del_flag 
+		</if>
+        ) VALUES (
+		<if test="id != null and  id != ''">
+			#{id} ,
+		</if>
+		<if test="roleName != null and  roleName != ''">
+			#{roleName} ,
+		</if>
+		<if test="dataScope != null">
+			#{dataScope} ,
+		</if>
+		<if test="delFlag != null">
+			#{delFlag} 
+		</if>
+        )
+    </insert>
+
+	<!-- 修改一条Role记录 -->
+    <update id="update" parameterType="com.rong.app.role.entity.RoleEntity" >
+        UPDATE role SET
+		<if test="roleName != null and  roleName != ''">
+			role_name = #{roleName} ,
+		</if>
+		<if test="dataScope != null">
+			data_scope = #{dataScope} ,
+		</if>
+		<if test="delFlag != null">
+			del_flag = #{delFlag} 
+		</if>
+        WHERE 
+	        id = #{id} 
+    </update>
+
+	<!-- 删除一条Role记录 -->
+    <delete id="delete" parameterType="com.rong.app.role.entity.RoleEntity" >
+        DELETE FROM role WHERE
+        id = #{id} 
+    </delete>
+
+  	
+</mapper>

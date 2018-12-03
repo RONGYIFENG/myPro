@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- EveryDayMapper.xml文件 -->
+<mapper namespace="com.rong.app.boot.everyday.dao.EveryDayMapper">
+	<!-- 行别名列名ResultMap -->
+	<resultMap id="RMEveryDayMapper" type="com.rong.app.boot.everyday.entity.EveryDayEntity">
+		<!-- 主键 -->
+        <result property="id" column="id"/>
+		<!-- 类型 -->
+        <result property="type" column="type"/>
+		<!-- 作者 -->
+        <result property="author" column="author"/>
+		<!-- 内容 -->
+        <result property="content" column="content"/>
+		<!-- 发布时间 -->
+        <result property="createTime" column="create_time"/>
+		<!-- 图片 -->
+        <result property="img" column="img"/>
+		<result property="title" column="title"/>
+
+	</resultMap>
+
+	<!-- 通用where子句 -->
+    <sql id="where">
+	<trim prefix="WHERE" prefixOverrides="AND|OR"> 
+		   <if test="id != null and id != ''">
+			   AND id = #{id}
+		   </if>
+	       <if test="type != null ">
+				AND type = #{type}
+			</if>
+		   <if test="author != null and author != ''">
+			   AND author = #{author}
+		   </if>
+		   <if test="content != null and content != ''">
+			   AND content = #{content}
+		   </if>
+	       <if test="createTime != null ">
+				AND create_time = 	#{createTime}
+			</if>
+		   <if test="img != null and img != ''">
+			   AND img = #{img}
+		   </if>
+	</trim>
+    </sql>
+
+	<!-- 通用行别名列名映射 -->
+    <sql id="Base_Column_List" >
+	        id id ,
+	        type type ,
+	        author author ,
+	        content content ,
+	        create_time createTime ,
+	        img img ,
+	        title title
+    </sql>
+
+	<!-- 条件查询EveryDay记录(分页) -->
+    <select id="getListForEveryDay" resultType="com.rong.app.boot.everyday.entity.EveryDayEntity">
+        SELECT
+        <include refid="Base_Column_List" />
+        from every_day
+        <include refid="where"></include>	
+    </select>
+
+	<!-- 条件查询EveryDay记录 -->
+    <select id="getList" resultMap="RMEveryDayMapper">
+        SELECT
+        <include refid="Base_Column_List" />
+        from every_day
+        <include refid="where"></include>
+    </select>
+
+	<!-- 条件查询EveryDay条数 -->
+	<select id="getCountForEveryDay" resultType="java.lang.Integer">
+		SELECT
+		count(1),
+		from every_day
+		<include refid="where"></include>
+	</select>
+
+	<!-- 插入EveryDay记录 -->
+    <insert id="insert" parameterType="com.rong.app.boot.everyday.entity.EveryDayEntity">
+        insert into every_day (
+		<if test="id != null and id != '' ">
+        	id ,
+		</if>
+		<if test="type != null and type != '' ">
+        	type ,
+		</if>
+		<if test="author != null and author != '' ">
+        	author ,
+		</if>
+		<if test="content != null and content != '' ">
+        	content ,
+		</if>
+		<if test="createTime != null and createTime != '' ">
+        	create_time ,
+		</if>
+		<if test="img != null and img != '' ">
+        	img 
+		</if>
+		<if test="title != null and title != '' ">
+			title
+		</if>
+        ) VALUES (
+		<if test="id != null and  id != ''">
+			#{id} ,
+		</if>
+		<if test="type != null">
+			#{type} ,
+		</if>
+		<if test="author != null and  author != ''">
+			#{author} ,
+		</if>
+		<if test="content != null and  content != ''">
+			#{content} ,
+		</if>
+		<if test="createTime != null">
+			#{createTime} ,
+		</if>
+		<if test="img != null and  img != ''">
+			#{img} 
+		</if>
+		<if test="title != null and title != '' ">
+			#{title}
+		</if>
+        )
+    </insert>
+
+	<!-- 修改一条EveryDay记录 -->
+    <update id="update" parameterType="com.rong.app.boot.everyday.entity.EveryDayEntity" >
+        UPDATE every_day SET
+		<if test="type != null">
+			type = #{type} ,
+		</if>
+		<if test="author != null and  author != ''">
+			author = #{author} ,
+		</if>
+		<if test="content != null and  content != ''">
+			content = #{content} ,
+		</if>
+		<if test="createTime != null">
+			create_time = #{createTime} ,
+		</if>
+		<if test="img != null and  img != ''">
+			img = #{img} 
+		</if>
+		<if test="title != null and title != '' ">
+			title=#{title}
+		</if>
+        WHERE 
+	        id = #{id} 
+    </update>
+
+	<!-- 删除一条EveryDay记录 -->
+    <delete id="delete" parameterType="com.rong.app.boot.everyday.entity.EveryDayEntity" >
+        DELETE FROM every_day WHERE
+        id = #{id} 
+    </delete>
+
+  	
+</mapper>

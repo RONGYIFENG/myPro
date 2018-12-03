@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- UserMapper.xml文件 -->
+<mapper namespace="com.rong.app.user.dao.UserMapper">
+
+	<!-- 行别名列名ResultMap -->
+	<resultMap id="RMUserMapper" type="com.rong.app.user.entity.UserEntity">
+		<!-- id -->
+        <result property="id" column="id"/>
+		<!-- 姓名 -->
+        <result property="name" column="name"/>
+		<!-- 性别 -->
+        <result property="sex" column="sex"/>
+		<!-- 登录名 -->
+        <result property="loginName" column="login_name"/>
+		<!-- 密码 -->
+        <result property="password" column="password"/>
+		<!-- 在职状态 -->
+        <result property="status" column="status"/>
+	</resultMap>
+
+	<!-- 通用where子句 -->
+    <sql id="where">
+	<trim prefix="WHERE" prefixOverrides="AND|OR"> 
+		   <if test="id != null and id != ''">
+			   AND id = #{id}
+		   </if>
+		   <if test="name != null and name != ''">
+			   AND name = #{name}
+		   </if>
+	       <if test="sex != null ">
+				AND sex = #{sex}
+			</if>
+		   <if test="loginName != null and loginName != ''">
+			   AND login_name = #{loginName}
+		   </if>
+		   <if test="password != null and password != ''">
+			   AND password = #{password}
+		   </if>
+	       <if test="status != null ">
+				AND status = #{status}
+			</if>
+	</trim>
+    </sql>
+
+	<!-- 通用行别名列名映射 -->
+    <sql id="Base_Column_List" >
+	        id id ,
+	        name name ,
+	        sex sex ,
+	        login_name loginName ,
+	        password password ,
+	        status status 
+    </sql>
+
+	<!-- 插入User记录 -->
+    <insert id="insert" parameterType="com.rong.app.user.entity.UserEntity">
+        insert into user (
+		<if test="id != null and  id != ''">
+			id ,
+		</if>
+		<if test="name != null and  name != ''">
+			name ,
+		</if>
+		<if test="sex != null">
+			sex ,
+		</if>
+		<if test="loginName != null and  loginName != ''">
+			login_name ,
+		</if>
+		<if test="password != null and  password != ''">
+			password ,
+		</if>
+		<if test="status != null">
+			status 
+		</if>
+        ) VALUES (
+		<if test="id != null and  id != ''">
+			#{id} ,
+		</if>
+		<if test="name != null and  name != ''">
+			#{name} ,
+		</if>
+		<if test="sex != null">
+			#{sex} ,
+		</if>
+		<if test="loginName != null and  loginName != ''">
+			#{loginName} ,
+		</if>
+		<if test="password != null and  password != ''">
+			#{password} ,
+		</if>
+		<if test="status != null">
+			#{status} 
+		</if>
+        )
+    </insert>
+
+	<!-- 修改一条User记录 -->
+    <update id="update" parameterType="com.rong.app.user.entity.UserEntity" >
+        UPDATE user SET
+		<if test="name != null and  name != ''">
+			name = #{name} ,
+		</if>
+		<if test="sex != null">
+			sex = #{sex} ,
+		</if>
+		<if test="loginName != null and  loginName != ''">
+			login_name = #{loginName} ,
+		</if>
+		<if test="password != null and  password != ''">
+			password = #{password} ,
+		</if>
+		<if test="status != null">
+			status = #{status} 
+		</if>
+        WHERE 
+	        id = #{id} 
+    </update>
+
+	<!-- 删除一条User记录 -->
+    <delete id="delete" parameterType="com.rong.app.user.entity.UserEntity" >
+        DELETE FROM user WHERE
+        id = #{id} 
+    </delete>
+
+  	
+</mapper>

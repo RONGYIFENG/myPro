@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- AuthMapper.xml文件 -->
+<mapper namespace="com.rong.app.auth.dao.AuthMapper">
+
+	<!-- 行别名列名ResultMap -->
+	<resultMap id="RMAuthMapper" type="com.rong.app.auth.entity.AuthEntity">
+		<!-- 权限主键 -->
+        <result property="id" column="id"/>
+		<!-- 权限名称 -->
+        <result property="authName" column="auth_name"/>
+		<!-- 权限编号 -->
+        <result property="authCode" column="auth_code"/>
+		<!-- 权限请求的url -->
+        <result property="authUrl" column="auth_url"/>
+		<!-- 权限标识 -->
+        <result property="authPermission" column="auth_permission"/>
+		<!-- 权限类型 -->
+        <result property="authType" column="auth_type"/>
+	</resultMap>
+
+	<!-- 通用where子句 -->
+    <sql id="where">
+	<trim prefix="WHERE" prefixOverrides="AND|OR"> 
+		   <if test="id != null and id != ''">
+			   AND id = #{id}
+		   </if>
+		   <if test="authName != null and authName != ''">
+			   AND auth_name = #{authName}
+		   </if>
+		   <if test="authCode != null and authCode != ''">
+			   AND auth_code = #{authCode}
+		   </if>
+		   <if test="authUrl != null and authUrl != ''">
+			   AND auth_url = #{authUrl}
+		   </if>
+		   <if test="authPermission != null and authPermission != ''">
+			   AND auth_permission = #{authPermission}
+		   </if>
+	       <if test="authType != null ">
+				AND auth_type = #{authType}
+			</if>
+	</trim>
+    </sql>
+
+	<!-- 通用行别名列名映射 -->
+    <sql id="Base_Column_List" >
+	        id id ,
+	        auth_name authName ,
+	        auth_code authCode ,
+	        auth_url authUrl ,
+	        auth_permission authPermission ,
+	        auth_type authType 
+    </sql>
+
+	<!-- 插入Auth记录 -->
+    <insert id="insert" parameterType="com.rong.app.auth.entity.AuthEntity">
+        insert into auth (
+		<if test="id != null and  id != ''">
+			id ,
+		</if>
+		<if test="authName != null and  authName != ''">
+			auth_name ,
+		</if>
+		<if test="authCode != null and  authCode != ''">
+			auth_code ,
+		</if>
+		<if test="authUrl != null and  authUrl != ''">
+			auth_url ,
+		</if>
+		<if test="authPermission != null and  authPermission != ''">
+			auth_permission ,
+		</if>
+		<if test="authType != null">
+			auth_type 
+		</if>
+        ) VALUES (
+		<if test="id != null and  id != ''">
+			#{id} ,
+		</if>
+		<if test="authName != null and  authName != ''">
+			#{authName} ,
+		</if>
+		<if test="authCode != null and  authCode != ''">
+			#{authCode} ,
+		</if>
+		<if test="authUrl != null and  authUrl != ''">
+			#{authUrl} ,
+		</if>
+		<if test="authPermission != null and  authPermission != ''">
+			#{authPermission} ,
+		</if>
+		<if test="authType != null">
+			#{authType} 
+		</if>
+        )
+    </insert>
+
+	<!-- 修改一条Auth记录 -->
+    <update id="update" parameterType="com.rong.app.auth.entity.AuthEntity" >
+        UPDATE auth SET
+		<if test="authName != null and  authName != ''">
+			auth_name = #{authName} ,
+		</if>
+		<if test="authCode != null and  authCode != ''">
+			auth_code = #{authCode} ,
+		</if>
+		<if test="authUrl != null and  authUrl != ''">
+			auth_url = #{authUrl} ,
+		</if>
+		<if test="authPermission != null and  authPermission != ''">
+			auth_permission = #{authPermission} ,
+		</if>
+		<if test="authType != null">
+			auth_type = #{authType} 
+		</if>
+        WHERE 
+	        id = #{id} 
+    </update>
+
+	<!-- 删除一条Auth记录 -->
+    <delete id="delete" parameterType="com.rong.app.auth.entity.AuthEntity" >
+        DELETE FROM auth WHERE
+        id = #{id} 
+    </delete>
+
+  	
+</mapper>
